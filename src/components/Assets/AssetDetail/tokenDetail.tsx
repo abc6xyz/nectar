@@ -1,18 +1,19 @@
 import { ReactNode, useState } from "react";
 import Image from "next/image";
-import Item from "./net-detailed-item";
-import NetDetailedItem from "./net-detailed-item";
+import Item from "./tokenItem";
+import NetDetailedItem from "./tokenItem";
 import { TokenObject } from "@/interface";
+import { useTheme } from "@/providers/themeProvider";
 
 type HeaderProps = {
-  mode: boolean;
   token: TokenObject | null;
   onClose: (event: React.MouseEvent<HTMLDivElement>) => void;
   children?: ReactNode;
 };
 
-export default function TokenDetail({ mode, token, onClose}: HeaderProps) {
+export default function TokenDetail({ token, onClose}: HeaderProps) {
   const [value, setValue] = useState('');
+  const { theme } = useTheme()
   
   const onhandleTransfer = () => {
     console.log("transfering...")
@@ -23,7 +24,7 @@ export default function TokenDetail({ mode, token, onClose}: HeaderProps) {
       px-4
     `}>
       <div className="flex justify-between mb-8">
-        <div>Transfer US Tether</div>
+        <div>Transfer {token?.name}</div>
         <div className="cursor-pointer" onClick={onClose}>[ close ]</div>
       </div>
       <div className="space-y-3">
@@ -59,12 +60,10 @@ export default function TokenDetail({ mode, token, onClose}: HeaderProps) {
           <div className="w-3/4">
             <div className="flex relative justify-end h-full">
               <input
-                type="number"
-                min={0}
-                max={5000.123456}
-                value={0}
+                type="text"
+                prefix="0"
                 inputMode="numeric"
-                className={`text-xl w-full h-full rounded border border-[#FF4D04] appearance-none ${mode?"":"bg-zinc-900"}`}/>
+                className={`text-xl w-full h-full rounded border border-[#FF4D04] appearance-none ${theme?"":"bg-zinc-900"}`}/>
               <span className="absolute h-full flex justify-center">USDT</span>
             </div>
           </div>

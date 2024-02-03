@@ -1,7 +1,6 @@
 export interface TokenObject {
-    netName: string;
+    name: string;
     unit: string;
-    balance: string;
-    address: string;
+    balance: number;
     icon: string;
 }
